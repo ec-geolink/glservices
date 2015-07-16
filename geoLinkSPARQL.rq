@@ -1,0 +1,28 @@
+
+# find a thing I want with the spatial and terms I want
+PREFIX iodp: <http://data.oceandrilling.org/core/iodp/> 
+CONSTRUCT {
+     ?uri  a iodp:Drillsite  .
+  ?uri  geo:lat ?lat .
+  ?uri geo:long ?long .
+}  WHERE { 
+  ?uri  a iodp:Drillsite  .
+  ?uri  geo:lat ?lat .
+  ?uri geo:long ?long .
+} 
+
+
+PREFIX glview:  <http://schema.geolink.org/dev/view#> 
+PREFIX award: <http://data.geolink.org/id/award/nsf/> 
+PREFIX person:  <http://data.geolink.org/id/person/> 
+CONSTRUCT {
+   ?uri glview:matches <http://data.geolink.org/id/person/bf402132-8c19-409e-8dc1-864700efb838> .
+   ?uri rdfs:label ?label .
+}   
+WHERE { 
+  ?uri glview:matches  <http://data.geolink.org/id/person/bf402132-8c19-409e-8dc1-864700efb838> .  
+        <http://data.geolink.org/id/person/bf402132-8c19-409e-8dc1-864700efb838> rdfs:label ?label .
+}
+
+
+
