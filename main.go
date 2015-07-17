@@ -2,6 +2,7 @@ package main
 
 import (
 	"geolink.org/glservices/people"
+	"geolink.org/glservices/features"
 	"github.com/emicklei/go-restful"
 	"log"
 	"net/http"
@@ -34,6 +35,7 @@ func main() {
 	wsContainer.Filter(wsContainer.OPTIONSFilter)
 
 	wsContainer.Add(people.New())
+	wsContainer.Add(features.New())
 
 	log.Printf("start listening on localhost:6789")
 
