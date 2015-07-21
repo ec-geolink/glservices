@@ -27,6 +27,7 @@ func New() *restful.WebService {
 		Produces(restful.MIME_JSON)
 	// service.Route(service.GET("/jsonld").To(Features))
 	service.Route(service.GET("/rect").To(RectFeatures))
+	service.Route(service.GET("/wktpoly").To(WKTPoly))
 	service.Route(service.GET("/drilling").To(DrillingFeatures))
 	// Param(service.QueryParameter("lat", "Lattitude of the point of intereest")).
 	// Param(service.QueryParameter("long", "Longitude of the point of intereest")).
