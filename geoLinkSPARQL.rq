@@ -1,3 +1,65 @@
+# Geospatial bounding box
+# curl "http://localhost:6789/features/rect?lat0=-69.441017&long0=41.72588&lat1=-11.855307&long1=49.479248&lat2=-21.87759&long2=17.092054&lat3=-75.315453&long3=25.050638"
+CONSTRUCT {
+  ?href a ?type  .
+  ?href  rdfs:label ?label .
+        ?href geo:geometry ?geometry .
+}
+WHERE { 
+    ?href a ?type ;                         
+    rdfs:label ?label;                      
+    geo:geometry ?geometry .                                        
+    FILTER(bif:st_intersects(?geometry, bif:st_geomfromtext("POLYGON((41.72588 -69.441017, 49.479248 -11.855307, 17.092054 -21.877596, 25.050638 -75.315453))")))                 
+} LIMIT 50
+
+
+
+SELECT ?href ?label ?geometry
+WHERE { 
+    ?href a ?type ;                         
+    rdfs:label ?label;                      
+    geo:geometry ?geometry .                                        
+    FILTER(bif:st_intersects(?geometry, bif:st_geomfromtext("POLYGON((41.72588 -69.441017, 49.479248 -11.855307, 17.092054 -21.877596, 25.050638 -75.315453))")))                 
+} LIMIT 50
+
+
+# Point and Radius
+# curl "http://localhost:6789/features/drilling?lat=52&long=0&radius=1000"
+PREFIX  geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#>  
+CONSTRUCT {
+  ?uri a iodp:Drillsite  .
+   ?uri  geo:lat ?lat .
+        ?uri geo.long ?long .
+}
+WHERE  { 
+        ?uri  geo:geometry  ?geo    . 
+        ?uri  geo:lat ?lat .
+        ?uri geo.long ?long .
+          FILTER ( <bif:st_intersects> ( ?geo, <bif:st_point> (0, 52), 10000))
+} 
+
+# My testing, point and radius
+PREFIX  geo:  <http://www.w3.org/2003/01/geo/wgs84_pos#>  
+SELECT  ?m ?geo
+WHERE  { 
+        ?m  geo:geometry  ?geo    . 
+          FILTER ( <bif:st_intersects> ( ?geo, <bif:st_point> (0, 52), 10000))
+} 
+
+
+
+
+PREFIX iodp: <http://data.oceandrilling.org/core/iodp/> 
+CONSTRUCT {
+     ?uri  a iodp:Drillsite  .
+  ?uri  geo:lat ?lat .
+  ?uri geo:long ?long .
+}  WHERE { 
+  ?uri  a iodp:Drillsite  .
+  ?uri  geo:lat ?lat .
+  ?uri geo:long ?long .
+} 
+
 
 # find a thing I want with the spatial and terms I want
 PREFIX iodp: <http://data.oceandrilling.org/core/iodp/> 
@@ -23,6 +85,7 @@ WHERE {
   ?uri glview:matches  <http://data.geolink.org/id/person/bf402132-8c19-409e-8dc1-864700efb838> .  
         <http://data.geolink.org/id/person/bf402132-8c19-409e-8dc1-864700efb838> rdfs:label ?label .
 }
+
 
 
 
