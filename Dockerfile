@@ -1,5 +1,6 @@
 # Start from a Debian image with the latest version of Go installed
 # and a workspace (GOPATH) configured at /go.
+# docker run -d -p 6789:6789 -p 8081:8081 [IMAGE ID] 
 FROM golang
 
 # Copy the local package files to the container's workspace.
@@ -37,4 +38,4 @@ WORKDIR /go/src/geolink.org/glservices
 ENTRYPOINT go run main.go
 
 # Document that the service listens on this port
-EXPOSE 9900
+EXPOSE 6789 8081

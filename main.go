@@ -35,7 +35,7 @@ func main() {
 	wsContainer.Add(people.New())
 	wsContainer.Add(features.New())
 
-	log.Printf("start listening on localhost:6789")
+	log.Printf("Listening on localhost:6789 (service) and localhost:8081 (static files)")
 
 	server := &http.Server{Addr: ":6789", Handler: wsContainer}
 	server.ListenAndServe()
