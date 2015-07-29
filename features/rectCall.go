@@ -39,7 +39,7 @@ WHERE {
 func RectFeatures(request *restful.Request, response *restful.Response) {
 	sprReturn := RectCall(request.QueryParameter("lat0"), request.QueryParameter("long0"), request.QueryParameter("lat1"), request.QueryParameter("long1"),request.QueryParameter("lat2"), request.QueryParameter("long2"),request.QueryParameter("lat3"), request.QueryParameter("long3"))
 	dataparsed, _ := jsonld.ParseDataset([]byte(sprReturn))
-	jldOptions := jsonld.NewOptions("http://data.oceandrilling.org")
+	jldOptions := jsonld.NewOptions("http://data.geolink.org")
 	jsonldResults := jsonld.FromRDF(dataparsed, jldOptions)
 	response.WriteEntity(jsonldResults)
 }
@@ -57,7 +57,7 @@ func RectCall(lat0 string, long0 string,lat1 string, long1 string,lat2 string, l
 		log.Printf("rect template execution failed: %s", err)
 	}
 
-	url := "http://data.oceandrilling.org:8890/sparql?default-graph-uri=&query=" + url.QueryEscape(string(buff.Bytes()))
+	url := "http://data.geolink.org:8890/sparql?default-graph-uri=&query=" + url.QueryEscape(string(buff.Bytes()))
 	request := gorequest.New()
 	resp, body, errs := request.Get(url).Set("Accept", "text/plain").End()
 	if errs != nil {

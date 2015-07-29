@@ -17,7 +17,7 @@ CONSTRUCT {
   ?href  rdfs:label ?label .
         ?href geo:geometry ?geometry .
 }
-WHERE { 
+WHERE {  
     ?href a ?type ;                         
     rdfs:label ?label;                      
     geo:geometry ?geometry .                                        
@@ -30,7 +30,7 @@ func WKTPoly(request *restful.Request, response *restful.Response) {
 	sprReturn := WKTPolyCall(request.QueryParameter("g"))
 	log.Printf("%s \n", sprReturn)
 	dataparsed, _ := jsonld.ParseDataset([]byte(sprReturn))
-	jldOptions := jsonld.NewOptions("http://data.oceandrilling.org")
+	jldOptions := jsonld.NewOptions("http://data.geolink.org")
 	jsonldResults := jsonld.FromRDF(dataparsed, jldOptions)
 	response.WriteEntity(jsonldResults)
 }
@@ -46,7 +46,7 @@ func WKTPolyCall(g string) string {
 		log.Printf("rect template execution failed: %s", err)
 	}
 
-	url := "http://data.oceandrilling.org:8890/sparql?default-graph-uri=&query=" + url.QueryEscape(string(buff.Bytes()))
+	url := "http://data.geolink.org:8890/sparql?default-graph-uri=&query=" + url.QueryEscape(string(buff.Bytes()))
 	request := gorequest.New()
 	resp, body, errs := request.Get(url).Set("Accept", "text/plain").End()
 	if errs != nil {

@@ -8,8 +8,6 @@ import (
 	"net/http"
 )
 
-// todo:  swagger
-
 func main() {
 	// Simple sevice for some static pages about the glservice
 	serverMuxA := http.NewServeMux()
