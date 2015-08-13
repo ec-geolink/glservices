@@ -8,6 +8,8 @@ import (
 	"github.com/parnurzeal/gorequest"
 	"log"
 	"net/url"
+	"net/http"
+	"strings"
 	"text/template"
 )
 
@@ -25,14 +27,34 @@ WHERE {
 } 
 `
 
+const errorJSON = `{ "success": false,
+  "payload": {
+  },
+  "error": {
+    "code": 123,
+    "message": "Empty result set"
+  }
+}
+`
+
+// use web arch error codes?  204 No Content 
+// Is the best error from the JSON-LD lib really a strings contains check?
 func WKTPoly(request *restful.Request, response *restful.Response) {
-	log.Printf("In WKTPoly")
 	sprReturn := WKTPolyCall(request.QueryParameter("g"))
-	log.Printf("%s \n", sprReturn)
-	dataparsed, _ := jsonld.ParseDataset([]byte(sprReturn))
-	jldOptions := jsonld.NewOptions("http://data.geolink.org")
-	jsonldResults := jsonld.FromRDF(dataparsed, jldOptions)
-	response.WriteEntity(jsonldResults)
+	if strings.Contains(sprReturn, "# Empty NT") {
+		// response.mimetype JSON
+		response.WriteHeader(http.StatusNoContent)
+		//response.WriteEntity(errorJSON)  // not setting to JSON
+	} else {
+		dataparsed, error := jsonld.ParseDataset([]byte(sprReturn))
+		if error != nil {
+			response.WriteEntity("Need JSON error / emptry string here for panic situation")
+		}
+		jldOptions := jsonld.NewOptions("http://data.geolink.org")
+		jsonldResults := jsonld.FromRDF(dataparsed, jldOptions)
+		response.WriteEntity(jsonldResults)
+	}
+
 }
 
 func WKTPolyCall(g string) string {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+   <ShortName>GeoLink Search</ShortName>
+   <Description>GeoLink Search Interface for data.geolink.org</Description>
+   <Tags>geoinformatics geolink earthcube</Tags>
+   <Contact>info@geolink.org</Contact> 
+   <Url type="application/json+ld" 
+        template="http://ocd.oceandrilling.org/features/wktpoly?g={wktpolygon}&amp;format=json-ld"/>
+ </OpenSearchDescription>

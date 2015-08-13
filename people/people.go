@@ -50,9 +50,7 @@ func New() *restful.WebService {
 		Produces(restful.MIME_JSON)
 	service.Route(service.GET("/{leg}").To(People))
 	service.Route(service.GET("/test/{leg}").To(People))
-
 	service.Route(service.GET("/jsonld").To(PeopleLD))
-
 	return service
 }
 

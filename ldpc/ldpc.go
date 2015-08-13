@@ -1,4 +1,4 @@
-package features
+package ldpc
 
 import (
 	"github.com/emicklei/go-restful"
@@ -22,11 +22,10 @@ const geolinkContext = `
 func New() *restful.WebService {
 	service := new(restful.WebService)
 	service.
-		Path("/features").
+		Path("/ldpc").
 		Consumes(restful.MIME_JSON).
 		Produces(restful.MIME_JSON)
-	service.Route(service.GET("/rect").To(RectFeatures))
-	service.Route(service.GET("/wktpoly").To(WKTPoly))
-	service.Route(service.GET("/drilling").To(DrillingFeatures))
+    service.Route(service.GET("/").To(ContainerList))
+	  service.Route(service.GET("/iodp").To(ContainerDrillSites))
 	return service
 }
