@@ -1,8 +1,11 @@
 package hydra
 
 import (
-	//jsonld "github.com/linkeddata/gojsonld"
+	"encoding/json"
+	"fmt"
 	"github.com/emicklei/go-restful"
+	jsonld "github.com/linkeddata/gojsonld"
+	"log"
 )
 
 func New() *restful.WebService {
@@ -17,19 +20,15 @@ func New() *restful.WebService {
 }
 
 func Entry(request *restful.Request, response *restful.Response) {
-	// place holder data  need to do this as a JSON-LD object or struct(s)
-	data := `{
-  	"@context": "/hydra/entry/contexts/EntryPoint.jsonld",
-  	"@id": "/hydra/entry/",
-  	"@type": "EntryPoint",
-  	"datasets": "/hydra/entry/datasets/",
-	"datacatalogs" : "/hydra/entry/datacatalogs/"  
-	  
-   }`
-   
+	mapD := map[string]string{"@context": "/hydra/entry/contexts/EntryPoint.jsonld", "@id": "/hydra/entry/", "@type": "EntryPoint", "datasets": "/hydra/entry/datasets/", "datacatalogs": "/hydra/entry/datacatalogs/"}
+	mapB, _ := json.Marshal(mapD)
+	fmt.Println(string(mapB))
+
+	data, _ := jsonld.ReadJSON(mapB)
+
+	log.Println(string(mapB))
 	response.WriteEntity(data)
 }
-
 
 func DataSets(request *restful.Request, response *restful.Response) {
 	data := `{
@@ -52,7 +51,7 @@ func DataSets(request *restful.Request, response *restful.Response) {
   ]
 }`
 
-	response.WriteEntity(data)
+	dataparsed, _ := jsonld.ReadJSON([]byte(data))
+	response.WriteEntity(dataparsed)
+
 }
-
-

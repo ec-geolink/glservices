@@ -2,7 +2,7 @@ package people
 
 import (
 	"bytes"
-	"encoding/json"
+	//"encoding/json"
 	utilities "geolink.org/glservices/utilities"
 	"github.com/emicklei/go-restful"
 	jsonld "github.com/linkeddata/gojsonld"
@@ -77,14 +77,15 @@ func PeopleLD(request *restful.Request, response *restful.Response) {
 	// jsonldCompacted, _ := jsonld.Compact(dataparsed, jldConext, jldOptions)
 	// log.Printf("JSON-LD compacted:\n %s\n\n", jsonldCompacted)
 
-	jsonString, _ := json.Marshal(jsonldResults)
-	log.Println("JSON string for use in JSON-LD linter")
-	log.Println(string(jsonString))
+	// Are these next three lines needed with X.Serialize()
+	// jsonString, _ := json.Marshal(jsonldResults)
+	// log.Println("JSON string for use in JSON-LD linter")
+	// log.Println(string(jsonString))
 
-	log.Printf("\nSerialized back to RDF:\n %s \n\n", dataparsed.Serialize())
+	//log.Printf("\nSerialized back to RDF:\n %s \n\n", dataparsed.Serialize())
 
-	data := "place holder response string"
-	response.WriteEntity(data)
+	//data := "place holder response string"
+	response.WriteEntity(jsonldResults)
 }
 
 func glSparqlCall2(query string) string {
