@@ -1,0 +1,15 @@
+{
+    "@context": {
+        "hydra": "http://www.w3.org/ns/hydra/core#",
+        "vocab": "http://api.geolink.org/hydra/vocab#",
+        "EntryPoint": "vocab:EntryPoint",
+        "datasets": {
+            "@id": "vocab:EntryPoint/datasets",
+            "@type": "@id"
+        },
+        "data_catalogs": {
+            "@id": "vocab:EntryPoint/datacatalogs",
+            "@type": "@id"
+        }
+    }
+}

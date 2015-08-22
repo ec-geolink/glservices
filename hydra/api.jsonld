@@ -1,0 +1,7 @@
+{
+    "@context": "/hydra/EntryPoint.jsonld",
+    "@id": "/hydra/",
+    "@type": "EntryPoint",
+    "datasets": "/hydra/datasets/",
+    "data_catalogs": "/hydra/data_catalogs/",
+}
