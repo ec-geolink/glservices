@@ -1,0 +1,297 @@
+
+{
+    "@context": {
+        "vocab": "http://api.geolink.org/hydra/vocab#",
+        "hydra": "http://www.w3.org/ns/hydra/core#",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "schemaorg": "http://schema.org/",
+        "geolink": "http://schema.geolink.org/",
+        "property": {
+            "@id": "hydra:property",
+            "@type": "@id"
+        },
+        "readonly": "hydra:readonly",
+        "writeonly": "hydra:writeonly",
+        "supportedClass": "hydra:supportedClass",
+        "supportedProperty": "hydra:supportedProperty",
+        "supportedOperation": "hydra:supportedOperation",
+        "method": "hydra:method",
+        "expects": {
+            "@id": "hydra:expects",
+            "@type": "@id"
+        },
+        "returns": {
+            "@id": "hydra:returns",
+            "@type": "@id"
+        },
+        "statusCodes": "hydra:statusCodes",
+        "code": "hydra:statusCode",
+        "label": "rdfs:label",
+        "description": "rdfs:comment",
+        "domain": {
+            "@id": "rdfs:domain",
+            "@type": "@id"
+        },
+        "range": {
+            "@id": "rdfs:range",
+            "@type": "@id"
+        },
+        "subClassOf": {
+            "@id": "rdfs:subClassOf",
+            "@type": "@id"
+        }
+    },
+    "@id": "http://api.geolink.org/hydra/vocab",
+    "@type": "hydra:ApiDocumentation",
+    "supportedClass": [
+        {
+            "@id": "http://www.w3.org/ns/hydra/core#Resource",
+            "@type": "hydra:Class",
+            "hydra:title": "Resource",
+            "hydra:description": null,
+            "supportedOperation": [],
+            "supportedProperty": []
+        },
+        {
+            "@id": "http://www.w3.org/ns/hydra/core#Collection",
+            "@type": "hydra:Class",
+            "hydra:title": "Collection",
+            "hydra:description": null,
+            "supportedOperation": [],
+            "supportedProperty": [
+                {
+                    "property": "http://www.w3.org/ns/hydra/core#member",
+                    "hydra:title": "members",
+                    "hydra:description": "The members of this collection.",
+                    "required": null,
+                    "readonly": false,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "schemaorg:Dataset",
+            "@type": "hydra:Class",
+            "subClassOf": "geolink:Dataset",
+            "label": "Dataset",
+            "description": "A Dataset represents a dataset.",
+            "supportedOperation": [
+                {
+                    "@id": "_:dataset_retrieve",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "Retrieves a Dataset",
+                    "description": null,
+                    "expects": null,
+                    "returns": "schemaorg:Dataset",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": {
+                        "@id": "schemaorg:Dataset/name",
+                        "@type": "rdf:Property",
+                        "label": "name",
+                        "description": "The dataset's name",
+                        "domain": "schemaorg:Dataset",
+                        "range": "http://www.w3.org/2001/XMLSchema#string",
+                        "supportedOperation": []
+                    },
+                    "hydra:title": "name",
+                    "hydra:description": "The dataset's name",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "schemaorg:DataCatalog",
+            "@type": "hydra:Class",
+            "subClassOf": null,
+            "label": "Data Catalog",
+            "description": "A catalog of Datasets.",
+            "supportedOperation": [
+                {
+                    "@id": "_:data_catalog_retrieve",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "Retrieves a Data Catalog entity",
+                    "description": null,
+                    "expects": null,
+                    "returns": "schemaorg:DataCatalog",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": {
+                        "@id": "schemaorg:DataCatalog/name",
+                        "@type": "rdf:Property",
+                        "label": "Name",
+                        "description": "The Data Catalog's name",
+                        "domain": "schemaorg:DataCatalog",
+                        "range": "http://www.w3.org/2001/XMLSchema#string",
+                        "supportedOperation": []
+                    },
+                    "hydra:title": "name",
+                    "hydra:description": "The Data Catalog's name",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                },
+                {
+                    "property": {
+                        "@id": "schemaorg:DataCatalog/datasets",
+                        "@type": "hydra:Link",
+                        "label": "datasets",
+                        "description": "The datasets associated with this catalog",
+                        "domain": "schemaorg:DataCatalog",
+                        "range": "http://www.w3.org/ns/hydra/core#Collection",
+                        "supportedOperation": [
+                            {
+                                "@id": "_:data_catalog_datasets_retrieve",
+                                "@type": "hydra:Operation",
+                                "method": "GET",
+                                "label": "Retrieves all Dataset entities for a specific catalog",
+                                "description": null,
+                                "expects": null,
+                                "returns": "vocab:DatasetCollection",
+                                "statusCodes": []
+                            }
+                        ]
+                    },
+                    "hydra:title": "datasets",
+                    "hydra:description": "The datasets associated with this data catalog",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "vocab:EntryPoint",
+            "@type": "hydra:Class",
+            "subClassOf": null,
+            "label": "EntryPoint",
+            "description": "The main entry point or homepage of the API.",
+            "supportedOperation": [
+                {
+                    "@id": "_:entry_point",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "The APIs main entry point.",
+                    "description": null,
+                    "expects": null,
+                    "returns": "vocab:EntryPoint",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": {
+                        "@id": "vocab:EntryPoint/datasets",
+                        "@type": "hydra:Link",
+                        "label": "datasets",
+                        "description": "The collection of all datasets",
+                        "domain": "vocab:EntryPoint",
+                        "range": "http://www.w3.org/ns/hydra/core#Collection",
+                        "supportedOperation": [
+                            {
+                                "@id": "_:datasets_collection_retrieve",
+                                "@type": "hydra:Operation",
+                                "method": "GET",
+                                "label": "Retrieves all Dataset entities",
+                                "description": null,
+                                "expects": null,
+                                "returns": "vocab:DatasetCollection",
+                                "statusCodes": []
+                            }
+                        ]
+                    },
+                    "hydra:title": "datasets",
+                    "hydra:description": "The collection of all datasets",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                },
+                {
+                    "property": {
+                        "@id": "vocab:EntryPoint/datacatalogs",
+                        "@type": "hydra:Link",
+                        "label": "data catalogs",
+                        "description": "The collection of all data catalogs",
+                        "domain": "vocab:EntryPoint",
+                        "range": "http://www.w3.org/ns/hydra/core#Collection",
+                        "supportedOperation": [
+                            {
+                                "@id": "_:datacatalogs_collection_retrieve",
+                                "@type": "hydra:Operation",
+                                "method": "GET",
+                                "label": "Retrieves all Data Catalog entities",
+                                "description": null,
+                                "expects": null,
+                                "returns": "http://www.w3.org/ns/hydra/core#Collection",
+                                "statusCodes": []
+                            }
+                        ]
+                    },
+                    "hydra:title": "data catalogs",
+                    "hydra:description": "The collection of all data catalogs",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                }
+            ]
+        },{
+            "@id": "vocab:DatasetCollection",
+            "@type": "hydra:Class",
+            "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+            "label": "DatasetCollection",
+            "description": "A collection of datasets",
+            "supportedOperation": [
+                {
+                    "@id": "_:dataset_collection_retrieve",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "Retrieves all Event entities",
+                    "description": null,
+                    "expects": null,
+                    "returns": "vocab:DatasetCollection",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": {
+                        "@id": "_:dataset_collection_dataset",
+                        "@type": "schemaorg:DataCatalog/dataset",
+                        "label": "dataset",
+                        "description": "A dataset in the collection",
+                        "domain": "vocab:DatasetCollection",
+                        "range": "schemorg:Dataset",
+                        "supportedOperation": [
+                            {
+                                "@id": "_:dataset_collection_dataset_retrieve",
+                                "@type": "hydra:Operation",
+                                "method": "GET",
+                                "label": "Retrieves a dataset in a DatasetCollection",
+                                "description": null,
+                                "expects": null,
+                                "returns": "schemorg:Dataset",
+                                "statusCodes": []
+                            }
+                        ]
+                    },
+                    "hydra:title": "members",
+                    "hydra:description": "The datasets",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                }
+            ]
+        }
+    ]
+}
